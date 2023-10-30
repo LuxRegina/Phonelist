@@ -163,11 +163,20 @@ namespace tlfnLista
                 }
                 else if (command == "Delete person")
                 {
+                    Console.WriteLine("Write the name of the persons you want to delete: ");
+                    string inputName = Console.ReadLine();
 
+                    Console.WriteLine($"These links are of the topic you searched for:");
+
+                    phonebook.RemoveAll(person => person.firstname == inputName);
+                                     
                 }
                 else if (command == " Delete list")
                 {
-
+                    Console.WriteLine("Are you sure you want to empty out the list?");
+                    string YN = Console.ReadLine();
+                    if (YN == "Yes") { phonebook.Clear(); }
+                    else { Console.WriteLine("Good thing I asked twice!"); }
                 }
                 else
                 {
