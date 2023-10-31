@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Numerics;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 namespace tlfnLista
@@ -157,24 +158,34 @@ namespace tlfnLista
         }
         private static void AddPerson()
         {
-            string newInputName = Input("Write firstname: ");
+            string newInputName = Input("Write their firstname: ");
             Console.WriteLine();
-            string newInputSurname = Input("Write surname: ");
+            string newInputSurname = Input("Write their surname: ");
             Console.WriteLine();
             string newInputPhone = Input("Write their phone number: ");
             Console.WriteLine();
             string newInputAdress = Input("Write their adress: ");
             Console.WriteLine();
-            string newInputBirthdate = Input("Write their birthdate: ");
+            string newInputBirthdate = (Input("Write their birthdate (YYYYMMDD): "));
+            
+            if (ValidDate(newInputBirthdate))
+            {
+                string firstname = newInputName;
+                string surname = newInputSurname;
+                string phone = newInputPhone;
+                string adress = newInputAdress;
+                string Birthdate = newInputBirthdate;
 
-            string firstname = newInputName;
-            string surname = newInputSurname;
-            string phone = newInputPhone;
-            string adress = newInputAdress;
-            string birthdate = newInputBirthdate;
+                Contact person = new Contact(firstname, surname, phone, adress, Birthdate);
+                phonebook.Add(person);
 
-            Contact person = new Contact(firstname, surname, phone, adress, birthdate);
-            phonebook.Add(person);
+                Console.WriteLine($"{newInputName} {newInputSurname} was added to the list!");
+            }
+            else
+            {
+                Console.WriteLine("The birthdate doesnt match the format requested. Try again!");
+            }
+           
         }
         private static void LoadFile()
         {
@@ -201,6 +212,7 @@ namespace tlfnLista
                     Contact person = new Contact(Firstname, Surname, Phone, Adress, Birthdate);
                     phonebook.Add(person);
                 }
+                Console.WriteLine("File was successfully loaded!");
             }
             catch (FileNotFoundException)                 // Prevents the program from crashing when file can't be found.
             {
@@ -237,6 +249,28 @@ namespace tlfnLista
         {
             Console.WriteLine("List of commands:\n 'Delete person' - Delete person by name\n 'Delete list' - Deletes the entire list of persons.\n 'Edit person' - Edit a persons info.\n 'List' - Lists all persons in the list.\n 'List person' - lists all the people with the searched name in the list\n 'Load file' - Load in a file.\n 'Add person' - Add a new person to the list.\n 'Save file' - Saves the list to the latest loaded file.\n 'Quit' - Ends program.");
         }
+        static bool ValidDate(string newInputBirthdate)
+        {
+            string pattern = @"^\d{8}$";
 
+            if (!Regex.IsMatch(newInputBirthdate, pattern))
+            {
+                return false; // Måste vara exakt 8 siffror.
+            }
+
+            // Extraherar år, månad och dag från inmatningen.
+            int year = int.Parse(newInputBirthdate.Substring(0, 4));
+            int month = int.Parse(newInputBirthdate.Substring(4, 2));
+            int day = int.Parse(newInputBirthdate.Substring(6, 2));
+
+            // Kontrollerar om år, månad och dag är inom rimliga gränser.
+            if (year < 1900 || year > DateTime.Now.Year || month < 1 || month > 12 || day < 1 || day > 31)
+            {
+                return false;
+            }
+            return true;
+        }
+
+     
     }// Class program
 }// namespace
