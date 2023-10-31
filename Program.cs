@@ -113,12 +113,24 @@ namespace tlfnLista
             else {Console.WriteLine("Good thing I asked twice!");}
         }
         private static void DeletePerson()
-        {
-            string inputName = Input("Write the name of the persons you want to delete: ");
+        {            
+                string inputFirstname = Input("Write the firstname of the person you want to delete: ");
+                string inputSurname = Input("Write the surname of the person you want to delete: ");
 
-            Console.WriteLine($"These links are of the topic you searched for:");
-
-            phonebook.RemoveAll(person => person.firstname == inputName);
+            bool found = false;
+            for (int i = 0; i < phonebook.Count; i++)
+            {
+                if (phonebook[i].firstname == inputFirstname && phonebook[i].surname == inputSurname)            // Går igenom alla attribut i varje objekt i listan, jämför med input.
+                {
+                    found = true;
+                    phonebook.RemoveAll(person => person.firstname == inputFirstname && person.surname == inputSurname);
+                    Console.WriteLine($"{inputFirstname} {inputSurname} has been deleted from the list.");
+                }                                           
+            }
+            if (!found)
+            {
+                Console.WriteLine("The person requested doesnt exist in the phonebook.");
+            }
         }
         private static void SaveFile()                                              
         {
@@ -190,9 +202,13 @@ namespace tlfnLista
                     phonebook.Add(person);
                 }
             }
-            catch (System.IO.FileNotFoundException)                 // Prevents the program from crashing when file can't be found.
+            catch (FileNotFoundException)                 // Prevents the program from crashing when file can't be found.
             {
                 Console.WriteLine("Could not find the file requested. Try again.");
+            }
+            catch (System.ArgumentException)
+            {
+                Console.WriteLine("You must state a file to load.");
             }
         }
         private static void ListAll()
