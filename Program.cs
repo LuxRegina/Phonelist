@@ -30,21 +30,7 @@ namespace tlfnLista
             public void Print()
             {
                 Console.WriteLine();
-                Console.WriteLine($" Name: {firstname} {surname}\n Phone: {phone} \n Adress: {adress} \n Birthdate: {birthdate}");
-                //Console.Write("Phone nr:");
-
-               /* for (int i = 0; i < phone.Length; i++)
-                {
-
-                    Console.Write($" {phone[i]}");                                                   TODO: Array creation: Phone and Adress
-                }
-
-                Console.WriteLine("Adress: ");
-                for (int i = 0; i < adress.Length; i++)
-                {
-
-                    Console.Write($" {adress[i]}");
-                }*/
+                Console.WriteLine($" Name: {firstname} {surname}\n Phone: {phone} \n Adress: {adress} \n Birthdate: {birthdate}");             
             }
             public string Filesave()
             {
@@ -59,7 +45,7 @@ namespace tlfnLista
         
         static List<Contact> phonebook = new List<Contact>();
 
-        static void Main(string[] args)
+        static void Main(string[] args)                                             // <---------------------------------------------------- MAIN ---------------------------------------------->
         {            
             Console.WriteLine("Welcome to the phonebook! Type 'Help' for a list of commands.\n Write your command.");
 
@@ -132,14 +118,14 @@ namespace tlfnLista
 
             phonebook.RemoveAll(person => person.firstname == inputName);
         }
-        private static void SaveFile()
+        private static void SaveFile()                                              
         {
             using (StreamWriter writer = new StreamWriter(@"C:\Users\erika\source\repos\tlfnlista\bin\Debug\net6.0\savedlist.txt"))
             {
 
                 foreach (Contact person in phonebook)
                 {
-                    writer.WriteLine(person.Filesave());
+                    writer.WriteLine(person.Filesave());                            // Saves the changes to another file (savedlist.txt) to keep the original unchanged.
                 }
 
             }
@@ -177,10 +163,9 @@ namespace tlfnLista
         {
             try
             {
-                phonebook = new List<Contact>();   // Start blank everytime when loaded in.
+                phonebook = new List<Contact>();   // Prevents the file from being dublicated when loaded multiple times.
 
                 string textfile = Input("Name what file to load: ");
-
                 string[] textInFile = File.ReadAllLines(textfile);      
 
                 foreach (var line in textInFile)
@@ -197,7 +182,7 @@ namespace tlfnLista
                     phonebook.Add(person);
                 }
             }
-            catch (System.IO.FileNotFoundException)
+            catch (System.IO.FileNotFoundException)                 // Prevents the program from crashing when file can't be found.
             {
                 Console.WriteLine("Could not find the file requested. Try again.");
             }
@@ -218,9 +203,8 @@ namespace tlfnLista
             for (int i = 0; i < phonebook.Count; i++)
             {
 
-                if (phonebook[i].firstname == inputName)
-                {                                           // Går igenom alla attribut i varje objekt i listan, jämför med input.
-
+                if (phonebook[i].firstname == inputName)            // Går igenom alla attribut i varje objekt i listan, jämför med input.
+                {                             
                     phonebook[i].Print();
                 }
             }
