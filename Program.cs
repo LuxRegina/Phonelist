@@ -95,16 +95,7 @@ namespace tlfnLista
                 }
                 else if (command == "Save file")
                 {
-                    
-                    using (StreamWriter writer = new StreamWriter(@"C:\Users\erika\source\repos\tlfnlista\bin\Debug\net6.0\savedlist.txt"))
-                    {
-                        
-                        foreach (Contact person in phonebook)
-                        {
-                            writer.WriteLine(person.Filesave());
-                        }
-
-                    }
+                    SaveFile();                   
                 }
                 else if (command == "Delete person")
                 {
@@ -135,6 +126,19 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void SaveFile()
+        {
+            using (StreamWriter writer = new StreamWriter(@"C:\Users\erika\source\repos\tlfnlista\bin\Debug\net6.0\savedlist.txt"))
+            {
+
+                foreach (Contact person in phonebook)
+                {
+                    writer.WriteLine(person.Filesave());
+                }
+
+            }
+        }
 
         private static void EditPerson()
         {
