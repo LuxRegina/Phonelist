@@ -87,30 +87,7 @@ namespace tlfnLista
                 }
                 else if (command == "Add person")
                 {
-                    
-                    string newInputName = Input("Write firstname: ");
-                    Console.WriteLine();
-                    
-                    string newInputSurname = Input("Write surname: ");
-                    Console.WriteLine();
-                    
-                    string newInputPhone = Input("Write their phone number: ");
-                    Console.WriteLine();
-                                        
-                    string newInputAdress = Input("Write their adress: ");
-                    Console.WriteLine();
-                                       
-                    string newInputBirthdate = Input("Write their birthdate: ");
-
-                    string firstname = newInputName;
-                    string surname = newInputSurname;
-                    string phone = newInputPhone;
-                    string adress = newInputAdress;
-                    string birthdate = newInputBirthdate;
-
-                    Contact person = new Contact(firstname, surname, phone, adress, birthdate);
-
-                    phonebook.Add(person);
+                    AddPerson();                    
                 }
                 else if (command == "Edit person")
                 {
@@ -162,6 +139,29 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void AddPerson()
+        {
+            string newInputName = Input("Write firstname: ");
+            Console.WriteLine();
+            string newInputSurname = Input("Write surname: ");
+            Console.WriteLine();
+            string newInputPhone = Input("Write their phone number: ");
+            Console.WriteLine();
+            string newInputAdress = Input("Write their adress: ");
+            Console.WriteLine();
+            string newInputBirthdate = Input("Write their birthdate: ");
+
+            string firstname = newInputName;
+            string surname = newInputSurname;
+            string phone = newInputPhone;
+            string adress = newInputAdress;
+            string birthdate = newInputBirthdate;
+
+            Contact person = new Contact(firstname, surname, phone, adress, birthdate);
+
+            phonebook.Add(person);
+        }
 
         private static void LoadFile()
         {
