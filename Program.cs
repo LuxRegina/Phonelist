@@ -46,7 +46,6 @@ namespace tlfnLista
                     Console.Write($" {adress[i]}");
                 }*/
             }
-
             public string Filesave()
             {
                 return $"{firstname},{surname},{phone},{adress},{birthdate}";
@@ -118,15 +117,13 @@ namespace tlfnLista
             }
 
 
-        }// Main
-
+        }// Main       
         private static void DeleteList()
         {
             string YN = Input("Are you sure you want to empty out the list?");
             if (YN == "Yes") {phonebook.Clear();}
             else {Console.WriteLine("Good thing I asked twice!");}
         }
-
         private static void DeletePerson()
         {
             string inputName = Input("Write the name of the persons you want to delete: ");
@@ -135,7 +132,6 @@ namespace tlfnLista
 
             phonebook.RemoveAll(person => person.firstname == inputName);
         }
-
         private static void SaveFile()
         {
             using (StreamWriter writer = new StreamWriter(@"C:\Users\erika\source\repos\tlfnlista\bin\Debug\net6.0\savedlist.txt"))
@@ -148,7 +144,6 @@ namespace tlfnLista
 
             }
         }
-
         private static void EditPerson()
         {
             Process notepad = new Process();
@@ -157,7 +152,6 @@ namespace tlfnLista
             notepad.Start();
             Console.ReadLine();
         }
-
         private static void AddPerson()
         {
             string newInputName = Input("Write firstname: ");
@@ -177,36 +171,37 @@ namespace tlfnLista
             string birthdate = newInputBirthdate;
 
             Contact person = new Contact(firstname, surname, phone, adress, birthdate);
-
             phonebook.Add(person);
         }
-
         private static void LoadFile()
         {
-            phonebook = new List<Contact>();   // Start blank everytime when loaded in.
-
-            string textfile = Input("Name what file to load: ");
-
-            string[] textInFile = File.ReadAllLines(textfile);
-
-            // if (textfile == "System.IO.FileNotFoundException")                            
-            // TODO If file doesnt exist.
-
-            foreach (var line in textInFile)
+            try
             {
-                string[] rowsInFile = line.Split(',');
+                phonebook = new List<Contact>();   // Start blank everytime when loaded in.
 
-                string Firstname = rowsInFile[0].Trim(' ');
-                string Surname = rowsInFile[1].Trim(' ');
-                string Phone = rowsInFile[2].Trim(' ');
-                string Adress = rowsInFile[3].Trim(' ');
-                string Birthdate = rowsInFile[4].Trim(' ');
+                string textfile = Input("Name what file to load: ");
 
-                Contact person = new Contact(Firstname, Surname, Phone, Adress, Birthdate);
-                phonebook.Add(person);
+                string[] textInFile = File.ReadAllLines(textfile);      
+
+                foreach (var line in textInFile)
+                {
+                    string[] rowsInFile = line.Split(',');
+
+                    string Firstname = rowsInFile[0].Trim(' ');
+                    string Surname = rowsInFile[1].Trim(' ');
+                    string Phone = rowsInFile[2].Trim(' ');
+                    string Adress = rowsInFile[3].Trim(' ');
+                    string Birthdate = rowsInFile[4].Trim(' ');
+
+                    Contact person = new Contact(Firstname, Surname, Phone, Adress, Birthdate);
+                    phonebook.Add(person);
+                }
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                Console.WriteLine("Could not find the file requested. Try again.");
             }
         }
-
         private static void ListAll()
         {
             foreach (Contact person in phonebook)
@@ -214,7 +209,6 @@ namespace tlfnLista
                 person.Print();
             }
         }
-
         private static void ListPerson()
         {
             string inputName = Input("What firstname would you like the information on?:");
@@ -231,12 +225,10 @@ namespace tlfnLista
                 }
             }
         }
-
         private static void Help()
         {
             Console.WriteLine("List of commands:\n 'Delete person' - Delete person by name\n 'Delete list' - Deletes the entire list of persons.\n 'Edit person' - Edit a persons info.\n 'List' - Lists all persons in the list.\n 'List person' - lists all the people with the searched name in the list\n 'Load file' - Load in a file.\n 'Add person' - Add a new person to the list.\n 'Save file' - Saves the list to the latest loaded file.\n 'Quit' - Ends program.");
         }
-
 
     }// Class program
 }// namespace
