@@ -91,11 +91,7 @@ namespace tlfnLista
                 }
                 else if (command == "Edit person")
                 {
-                    Process notepad = new Process();
-                    notepad.StartInfo.FileName = "notepad.exe";
-                    notepad.StartInfo.Arguments = "C:/Users/erika/source/repos/tlfnlista/bin/Debug/net6.0/adresslist.txt";
-                    notepad.Start();
-                    Console.ReadLine();
+                    EditPerson();                    
                 }
                 else if (command == "Save file")
                 {
@@ -139,6 +135,15 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void EditPerson()
+        {
+            Process notepad = new Process();
+            notepad.StartInfo.FileName = "notepad.exe";
+            notepad.StartInfo.Arguments = "C:/Users/erika/source/repos/tlfnlista/bin/Debug/net6.0/adresslist.txt";
+            notepad.Start();
+            Console.ReadLine();
+        }
 
         private static void AddPerson()
         {
