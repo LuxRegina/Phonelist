@@ -83,27 +83,7 @@ namespace tlfnLista
                 }
                 else if (command == "Load file")
                 {
-                    phonebook = new List<Contact>();   // Start blank everytime when loaded in.
-
-                    string textfile = Input("Name what file to load: ");
-
-                    string[] textInFile = File.ReadAllLines(textfile);
-
-                    // if (textfile == )
-
-                    foreach (var line in textInFile)
-                    {
-                        string[] rowsInFile = line.Split(',');
-
-                        string Firstname = rowsInFile[0].Trim(' ');
-                        string Surname = rowsInFile[1].Trim(' ');
-                        string Phone = rowsInFile[2].Trim(' ');
-                        string Adress = rowsInFile[3].Trim(' ');
-                        string Birthdate = rowsInFile[4].Trim(' ');
-
-                        Contact person = new Contact(Firstname, Surname, Phone, Adress, Birthdate);
-                        phonebook.Add(person);
-                    }
+                    LoadFile();                    
                 }
                 else if (command == "Add person")
                 {
@@ -182,6 +162,32 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void LoadFile()
+        {
+            phonebook = new List<Contact>();   // Start blank everytime when loaded in.
+
+            string textfile = Input("Name what file to load: ");
+
+            string[] textInFile = File.ReadAllLines(textfile);
+
+            // if (textfile == "System.IO.FileNotFoundException")                            
+            // TODO If file doesnt exist.
+
+            foreach (var line in textInFile)
+            {
+                string[] rowsInFile = line.Split(',');
+
+                string Firstname = rowsInFile[0].Trim(' ');
+                string Surname = rowsInFile[1].Trim(' ');
+                string Phone = rowsInFile[2].Trim(' ');
+                string Adress = rowsInFile[3].Trim(' ');
+                string Birthdate = rowsInFile[4].Trim(' ');
+
+                Contact person = new Contact(Firstname, Surname, Phone, Adress, Birthdate);
+                phonebook.Add(person);
+            }
+        }
 
         private static void ListAll()
         {
