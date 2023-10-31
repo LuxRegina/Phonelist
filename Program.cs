@@ -38,9 +38,11 @@ namespace tlfnLista
             }
         }
         static string Input(string prompt)
-        {
+        {            
             Console.Write(prompt);
+#pragma warning disable CS8603              // Possible null reference return ignored.
             return Console.ReadLine();
+#pragma warning restore CS8603              // Possible null reference return fixed and then returned to normal.
         }
         
         static List<Contact> phonebook = new List<Contact>();
@@ -130,11 +132,14 @@ namespace tlfnLista
 
             }
         }
-        private static void EditPerson()
+        private static void EditPerson()                      
         {
+
+            string filesearch = Input("What file would you like to edit? ");
+
             Process notepad = new Process();
             notepad.StartInfo.FileName = "notepad.exe";
-            notepad.StartInfo.Arguments = "C:/Users/erika/source/repos/tlfnlista/bin/Debug/net6.0/adresslist.txt";
+            notepad.StartInfo.Arguments = filesearch;
             notepad.Start();
             Console.ReadLine();
         }
@@ -171,7 +176,10 @@ namespace tlfnLista
                 foreach (var line in textInFile)
                 {
                     string[] rowsInFile = line.Split(',');
-
+                    if (rowsInFile.Length < 5 )
+                    {
+                        continue;
+                    }
                     string Firstname = rowsInFile[0].Trim(' ');
                     string Surname = rowsInFile[1].Trim(' ');
                     string Phone = rowsInFile[2].Trim(' ');
