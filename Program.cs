@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Numerics;
 using System.Xml.Linq;
@@ -50,19 +51,24 @@ namespace tlfnLista
                 return $"{firstname},{surname},{phone},{adress},{birthdate}";
             }
         }
+        static string Input(string prompt)
+        {
+            Console.Write(prompt);
+            return Console.ReadLine();
+        }
         
         static List<Contact> phonebook = new List<Contact>();
 
         static void Main(string[] args)
-        {
-            string command;
+        {            
             Console.WriteLine("Welcome to the phonebook! Type 'Help' for a list of commands.\n Write your command.");
-           
 
-            do
+            bool ready = false;
+
+            while (!ready)
             {
-                Console.WriteLine(">: ");
-                command = Console.ReadLine();
+                
+                string command = Input("> ");
 
                 if (command == "Help")
                 {
@@ -70,8 +76,7 @@ namespace tlfnLista
                 }
                 else if (command == "List Person")
                 {
-                    Console.WriteLine("What firstname would you like the information on?: ");
-                    string inputName = Console.ReadLine();
+                    string inputName = Input("What firstname would you like the information on?:");
 
                     Console.WriteLine($"Here is the information on the name you searched for:");
 
@@ -96,10 +101,11 @@ namespace tlfnLista
                 {
                     phonebook = new List<Contact>();   // Start blank everytime when loaded in.
 
-                    Console.WriteLine("Name what file to load: ");
-                    string textfile = Console.ReadLine();
+                    string textfile = Input("Name what file to load: ");
 
                     string[] textInFile = File.ReadAllLines(textfile);
+
+                    // if (textfile == )
 
                     foreach (var line in textInFile)
                     {
@@ -117,18 +123,20 @@ namespace tlfnLista
                 }
                 else if (command == "Add person")
                 {
-                    Console.WriteLine("Write firstname: ");
-                    string newInputName = Console.ReadLine();
+                    
+                    string newInputName = Input("Write firstname: ");
                     Console.WriteLine();
-                    Console.WriteLine("Write surname: ");
-                    string newInputSurname = Console.ReadLine();
+                    
+                    string newInputSurname = Input("Write surname: ");
                     Console.WriteLine();
-                    Console.WriteLine("Write their phone number: ");
-                    string newInputPhone = Console.ReadLine();
-                    Console.WriteLine("Write their adress: ");
-                    string newInputAdress = Console.ReadLine();
-                    Console.WriteLine("Write their birthdate: ");
-                    string newInputBirthdate = Console.ReadLine();
+                    
+                    string newInputPhone = Input("Write their phone number: ");
+                    Console.WriteLine();
+                                        
+                    string newInputAdress = Input("Write their adress: ");
+                    Console.WriteLine();
+                                       
+                    string newInputBirthdate = Input("Write their birthdate: ");
 
                     string firstname = newInputName;
                     string surname = newInputSurname;
@@ -163,8 +171,7 @@ namespace tlfnLista
                 }
                 else if (command == "Delete person")
                 {
-                    Console.WriteLine("Write the name of the persons you want to delete: ");
-                    string inputName = Console.ReadLine();
+                    string inputName = Input("Write the name of the persons you want to delete: ");
 
                     Console.WriteLine($"These links are of the topic you searched for:");
 
@@ -173,17 +180,21 @@ namespace tlfnLista
                 }
                 else if (command == " Delete list")
                 {
-                    Console.WriteLine("Are you sure you want to empty out the list?");
-                    string YN = Console.ReadLine();
-                    if (YN == "Yes") { phonebook.Clear(); }
-                    else { Console.WriteLine("Good thing I asked twice!"); }
+                    string YN = Input("Are you sure you want to empty out the list?");
+                    if (YN == "Yes") {phonebook.Clear();}
+                    else {Console.WriteLine("Good thing I asked twice!");}
+                }
+                else if (command == "Quit")
+                {
+                    ready = true;
+                    Console.WriteLine("Goodbye!");
                 }
                 else
                 {
-                    Console.WriteLine("Goodbye!");
+                    Console.WriteLine($"Uknown command: {command}");
                 }
 
-            } while (command != "Quit");
+            }
 
 
         }// Main
