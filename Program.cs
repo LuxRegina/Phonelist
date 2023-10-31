@@ -103,9 +103,7 @@ namespace tlfnLista
                 }
                 else if (command == " Delete list")
                 {
-                    string YN = Input("Are you sure you want to empty out the list?");
-                    if (YN == "Yes") {phonebook.Clear();}
-                    else {Console.WriteLine("Good thing I asked twice!");}
+                    DeleteList();                    
                 }
                 else if (command == "Quit")
                 {
@@ -121,6 +119,13 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void DeleteList()
+        {
+            string YN = Input("Are you sure you want to empty out the list?");
+            if (YN == "Yes") {phonebook.Clear();}
+            else {Console.WriteLine("Good thing I asked twice!");}
+        }
 
         private static void DeletePerson()
         {
