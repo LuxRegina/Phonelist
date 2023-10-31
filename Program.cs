@@ -79,10 +79,7 @@ namespace tlfnLista
                 }
                 else if (command == "List")
                 {
-                    foreach (Contact person in phonebook)
-                    {
-                        person.Print();
-                    }
+                    ListAll();                    
                 }
                 else if (command == "Load file")
                 {
@@ -185,6 +182,14 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void ListAll()
+        {
+            foreach (Contact person in phonebook)
+            {
+                person.Print();
+            }
+        }
 
         private static void ListPerson()
         {
