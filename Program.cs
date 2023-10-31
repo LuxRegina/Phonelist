@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Numerics;
 using System.Xml.Linq;
@@ -64,15 +65,13 @@ namespace tlfnLista
             Console.WriteLine("Welcome to the phonebook! Type 'Help' for a list of commands.\n Write your command.");
 
             bool ready = false;
-
             while (!ready)
-            {
-                
+            {                
                 string command = Input("> ");
 
                 if (command == "Help")
                 {
-                    Console.WriteLine("List of commands:\n 'Delete person' - Delete person by name\n 'Delete list' - Deletes the entire list of persons.\n 'Edit person' - Edit a persons info.\n 'List' - Lists all persons in the list.\n 'List person' - lists all the people with the searched name in the list\n 'Load file' - Load in a file.\n 'Add person' - Add a new person to the list.\n 'Save file' - Saves the list to the latest loaded file.\n 'Quit' - Ends program.");
+                    Help();                    
                 }
                 else if (command == "List Person")
                 {
@@ -198,5 +197,12 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void Help()
+        {
+            Console.WriteLine("List of commands:\n 'Delete person' - Delete person by name\n 'Delete list' - Deletes the entire list of persons.\n 'Edit person' - Edit a persons info.\n 'List' - Lists all persons in the list.\n 'List person' - lists all the people with the searched name in the list\n 'Load file' - Load in a file.\n 'Add person' - Add a new person to the list.\n 'Save file' - Saves the list to the latest loaded file.\n 'Quit' - Ends program.");
+        }
+
+
     }// Class program
 }// namespace
