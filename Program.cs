@@ -99,12 +99,7 @@ namespace tlfnLista
                 }
                 else if (command == "Delete person")
                 {
-                    string inputName = Input("Write the name of the persons you want to delete: ");
-
-                    Console.WriteLine($"These links are of the topic you searched for:");
-
-                    phonebook.RemoveAll(person => person.firstname == inputName);
-                                     
+                    DeletePerson();                                                         
                 }
                 else if (command == " Delete list")
                 {
@@ -126,6 +121,15 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void DeletePerson()
+        {
+            string inputName = Input("Write the name of the persons you want to delete: ");
+
+            Console.WriteLine($"These links are of the topic you searched for:");
+
+            phonebook.RemoveAll(person => person.firstname == inputName);
+        }
 
         private static void SaveFile()
         {
