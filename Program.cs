@@ -73,21 +73,9 @@ namespace tlfnLista
                 {
                     Help();                    
                 }
-                else if (command == "List Person")
+                else if (command == "List person")
                 {
-                    string inputName = Input("What firstname would you like the information on?:");
-
-                    Console.WriteLine($"Here is the information on the name you searched for:");
-
-                    for (int i = 0; i < phonebook.Count; i++)
-                    {
-
-                        if (phonebook[i].firstname == inputName)
-                        {                                           // Går igenom alla attribut i varje objekt i listan, jämför med input.
-
-                            phonebook[i].Print();
-                        }
-                    }
+                    ListPerson();                    
                 }
                 else if (command == "List")
                 {
@@ -197,6 +185,23 @@ namespace tlfnLista
 
 
         }// Main
+
+        private static void ListPerson()
+        {
+            string inputName = Input("What firstname would you like the information on?:");
+
+            Console.WriteLine($"Here is the information on the name you searched for:");
+
+            for (int i = 0; i < phonebook.Count; i++)
+            {
+
+                if (phonebook[i].firstname == inputName)
+                {                                           // Går igenom alla attribut i varje objekt i listan, jämför med input.
+
+                    phonebook[i].Print();
+                }
+            }
+        }
 
         private static void Help()
         {
